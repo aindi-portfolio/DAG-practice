@@ -1,5 +1,6 @@
 import os
 import psycopg2
+from psycopg2.extras import Json
 import requests
 from dotenv import load_dotenv
 load_dotenv()
@@ -40,6 +41,6 @@ with psycopg2.connect(
             INSERT INTO raw_api_data (source, payload)
             VALUES (%s, %s)
             """,
-            (api_url, response)
+            ("github:python/cpython", Json(response))
         )
         print("API data inserted into PostgreSQL database successfully.")
